@@ -15,8 +15,8 @@ router.get('/', (req, res) => {
           model: Tag,
           through: [ProductTag]
         }]
-    }).then(productData => {
-      res.json(productData);
+    }).then(productDb => {
+      res.json(productDb);
     })
   }
   catch (err) {

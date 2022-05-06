@@ -20,7 +20,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-  // find a single product by its `id`
+  // find a single category by its `id`
   try {
     Category.findByPk(req.params.id, {
 
