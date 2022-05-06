@@ -100,10 +100,17 @@ router.put('/:id', (req, res) => {
           };
         });
       // figure out which ones to remove
+      console.log(productTagIds)
       const productTagsToRemove = productTags
-        .filter(({ tag_id }) => !req.body.tagIds.includes(tag_id))
-        .map(({ id }) => id);
-
+        .filter(({ tag_id }) =>{
+          console.log(tag_id)
+          // console.log(productTagsToRemove)
+          return !req.body.tagIds.includes(tag_id)
+        }) 
+        .map(( tag_id ) =>{
+          console.log(tag_id.get({plain: true}))
+          return tag_id.id;
+        }) 
       // run both actions
       return Promise.all([
         ProductTag.destroy({ where: { id: productTagsToRemove } }),
