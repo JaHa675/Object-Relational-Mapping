@@ -5,10 +5,8 @@ const { Tag, Product, ProductTag } = require('../../models');
 
 router.get('/', (req, res) => {
   // find all tags
-  router.get('/', (req, res) => {
-    // find all products
     try {
-      const tagData = await Tag.findAll({
+      const tagData = Tag.findAll({
         // be sure to include its associated Product data
         include: {
           model: Product,
@@ -23,8 +21,7 @@ router.get('/', (req, res) => {
       res.status(500).json({ msg: "an error occurred", err });
     };
   });
-});
-
+  
 router.get('/:id', (req, res) => {
   // find a single tag by its `id` including associated product
   try {
@@ -70,7 +67,7 @@ router.put('/:id', (req, res) => {
 
 router.delete('/:id', (req, res) => {
   // delete on tag by its `id` value
-  Tag.destroy(req.body, {
+  Tag.destroy({
     where:{
       id:req.params.id
     }

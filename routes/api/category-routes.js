@@ -6,7 +6,7 @@ const { Category, Product, ProductTag, Tag } = require('../../models');
 router.get('/', (req, res) => {
   // find all categories
   try {
-    const categoryData = await Category.findAll({
+    const categoryData =  Category.findAll({
       // be sure to include its associated Category and Tag data
       include: { model: Product }
     }).then(categoryDb => {
@@ -59,7 +59,7 @@ router.put('/:id', (req, res) => {
 
 router.delete('/:id', (req, res) => {
   // delete a category by its `id` value
-  Category.destroy(req.body, {
+  Category.destroy({
     where:{
       id:req.params.id
     }
