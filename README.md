@@ -13,6 +13,8 @@
 
 a small project to demonstrate how I would go about creating the database for a simple product catagorizing system using sequelize. 
 
+[link to video](https://drive.google.com/file/d/1Bjbja3jAtq8hIWOe-RID6WK0iu3kkhU2/view)
+
 ---
 
 ## Installation
