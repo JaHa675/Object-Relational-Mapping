@@ -6,38 +6,42 @@ const { Product, Category, Tag, ProductTag } = require('../../models');
 // get all products
 router.get('/', (req, res) => {
   // find all products
-  const productData = await Product.findAll({
-    // be sure to include its associated Category and Tag data
-    include:[
-      {model: Category},
-      {model:Tag,
-    through:[ProductTag]}]
-
-  }).then(productData=>{
-    res.json(productData);
-  })
-  .catch(err =>{
+  try {
+    const productData = await Product.findAll({
+      // be sure to include its associated Category and Tag data
+      include: [
+        { model: Category },
+        {
+          model: Tag,
+          through: [ProductTag]
+        }]
+    }).then(productData => {
+      res.json(productData);
+    })
+  }
+  catch (err) {
     console.log(err);
-    res.status(500).json({msg:"an error occurred",err});
-  });
+    res.status(500).json({ msg: "an error occurred", err });
+  };
 });
 
 // get one product
 router.get('/:id', (req, res) => {
   // find a single product by its `id`
-  try{
-    Product.findByPk(req.params.id,{
-      include:[{
-        model:Tag,
-        through:[ProductTag]
+  try {
+    Product.findByPk(req.params.id, {
+      // be sure to include its associated Category and Tag data
+      include: [{
+        model: Tag,
+        through: [ProductTag]
       }]
     }).then(productData => res.json(productData))
   }
-  catch(err) {
+  catch (err) {
     console.log(err);
-    res.status(500).json({msg:"an error occurred".err});
-    // be sure to include its associated Category and Tag data
-}});
+    res.status(500).json({ msg: "an error occurred".err });
+  }
+});
 
 // create new product
 router.post('/', (req, res) => {
@@ -115,6 +119,17 @@ router.put('/:id', (req, res) => {
 
 router.delete('/:id', (req, res) => {
   // delete one product by its `id` value
+  try {
+    Product.destroy({
+      where: {
+        id: req.params.id
+      }
+    }).then(productDelete => res.json(productDelete))
+  }
+  catch (err) {
+    console.log(err);
+    res.status(500).json({ msg: "an error occurred", err })
+  }
 });
 
 module.exports = router;
